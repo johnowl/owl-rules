@@ -2,10 +2,13 @@ package com.johnowl.rules
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 
-object RulesEngine {
+class RulesEngine {
 
-    fun check(expression: String, variables: Map<String, String>): Boolean {
-        val evaluator = RulesEvaluator(variables).parseToEnd(expression)
+    private val parser = VariablesParser()
+
+    fun check(expression: String, variables: Map<String, Any>): Boolean {
+        val vars = parser.parse(variables)
+        val evaluator = RulesEvaluator(vars).parseToEnd(expression)
         return evaluator.resolve()
     }
 
