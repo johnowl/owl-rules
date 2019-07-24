@@ -11,6 +11,8 @@ The first parameter is the rule and the second is a Map<String, Any> that contai
 
 ## Bule Language
 
+![Blue teapot](docs/assets/bule.jpg "Blue teapot1")
+
 Bule is the name of the programming language used to write the rules, it's just boolean expressions. 
 The result of a Bule expression is always `true` or `false`. See some examples of valid Bule expressions:
 
