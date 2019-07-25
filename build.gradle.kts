@@ -31,6 +31,10 @@ jacoco {
 
 tasks {
 
+    test {
+        useJUnitPlatform()
+    }
+
     jacocoTestReport {
         isEnabled = true
         reports {
