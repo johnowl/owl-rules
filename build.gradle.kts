@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-//import org.gradle.jvm.tasks.Jar
-
 
 plugins {
     kotlin("jvm") version "1.3.41"
+    jacoco
 }
 
 group = "com.johnowl"
@@ -13,7 +12,6 @@ repositories {
     mavenCentral()
     maven { setUrl("https://dl.bintray.com/hotkeytlt/maven") }
 }
-
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -26,13 +24,28 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-/*val fatJar = task("fatJar", type = Jar::class) {
-    from(configurations.compile.get().map({ if (it.isDirectory) it else zipTree(it) }))
-    with(tasks.jar.get() as CopySpec)
+jacoco {
+    toolVersion = "0.8.2"
 }
 
 tasks {
-    "build" {
-        dependsOn(fatJar)
+
+    jacocoTestReport {
+        isEnabled = true
+        reports {
+            html.isEnabled = true
+            xml.isEnabled = true
+        }
     }
-}*/
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule { limit { minimum = BigDecimal.valueOf(0.7) } }
+        }
+    }
+
+    check {
+        dependsOn(jacocoTestCoverageVerification)
+        dependsOn(jacocoTestReport)
+    }
+}
