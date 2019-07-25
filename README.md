@@ -1,5 +1,8 @@
 # Owl Rules
 
+[![CircleCI](https://circleci.com/gh/johnowl/owl-rules.svg?style=svg)](https://circleci.com/gh/johnowl/owl-rules)
+[![codecov](https://codecov.io/gh/johnowl/owl-rules/branch/master/graph/badge.svg)](https://codecov.io/gh/johnowl/owl-rules)
+
 A rule engine processor with an expression boolean language to define the rules.
 
 ## How to use
