@@ -44,23 +44,21 @@ class RulesEngineTest {
 
     @Test
     fun `should return true for list that contains variable`() {
-        assert(engine.check("[1 2 3 4] CONTAINS Number(var1)",mapOf("var1" to 1)))
+        assert(engine.check("[1 2 3 4] CONTAINS Number(var1)", mapOf("var1" to 1)))
     }
 
     @Test
     fun `should return true for variable numeric list that contains variable`() {
-        assert(engine.check("List(var0) CONTAINS Number(var1)",mapOf("var1" to 1, "var0" to listOf(1, 2, 3))))
+        assert(engine.check("List(var0) CONTAINS Number(var1)", mapOf("var1" to 1, "var0" to listOf(1, 2, 3))))
     }
 
     @Test
     fun `should return true for variable text list that contains variable`() {
-        assert(engine.check("List(var0) CONTAINS var1",mapOf("var1" to "beta", "var0" to listOf("alpha", "beta"))))
+        assert(engine.check("List(var0) CONTAINS var1", mapOf("var1" to "beta", "var0" to listOf("alpha", "beta"))))
     }
-
 
     @Test
     fun `should return true for variable mixed list that contains text variable`() {
-        assert(engine.check("List(var0) CONTAINS var1",mapOf("var1" to "beta", "var0" to listOf("alpha", "beta", 1, 2))))
+        assert(engine.check("List(var0) CONTAINS var1", mapOf("var1" to "beta", "var0" to listOf("alpha", "beta", 1, 2))))
     }
-
 }

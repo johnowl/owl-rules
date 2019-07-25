@@ -30,11 +30,11 @@ internal data class Text(val value: String) : Value<String>, BooleanExpression()
     override fun get() = value
 }
 
-internal  class Not(val body: BooleanExpression) : BooleanExpression() {
+internal class Not(val body: BooleanExpression) : BooleanExpression() {
     override fun resolve() = !body.resolve()
 }
 
-internal class And(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression()  {
+internal class And(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve() = left.resolve() && right.resolve()
 }
 
@@ -45,10 +45,10 @@ internal class Or(val left: BooleanExpression, val right: BooleanExpression) : B
 internal class GreaterThan(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value > right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value > right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -58,10 +58,10 @@ internal class GreaterThan(val left: BooleanExpression, val right: BooleanExpres
 internal class GreaterThanOrEquals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value >= right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value >= right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -71,10 +71,10 @@ internal class GreaterThanOrEquals(val left: BooleanExpression, val right: Boole
 internal class LessThan(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value < right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value < right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -84,10 +84,10 @@ internal class LessThan(val left: BooleanExpression, val right: BooleanExpressio
 internal class LessThanOrEquals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value <= right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value <= right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -97,10 +97,10 @@ internal class LessThanOrEquals(val left: BooleanExpression, val right: BooleanE
 internal class Equals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value == right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value == right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -110,10 +110,10 @@ internal class Equals(val left: BooleanExpression, val right: BooleanExpression)
 internal class NotEquals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(left is Number && right is Number)
+        if (left is Number && right is Number)
             return left.value != right.value
 
-        if(left is Text && right is Text)
+        if (left is Text && right is Text)
             return left.value != right.value
 
         throw InvalidParameterException("BooleanExpression must be Text or Number")
@@ -130,12 +130,12 @@ internal class BooleanExpressionList(var list: List<BooleanExpression>) : Boolea
 
         var list = arrayListOf<BooleanExpression>()
 
-        for(item in str.removePrefix("[").removeSuffix("]").split(" ")) {
-            if(item.startsWith("Number(")) {
+        for (item in str.removePrefix("[").removeSuffix("]").split(" ")) {
+            if (item.startsWith("Number(")) {
                 list.add(Number(item.removePrefix("Number(").removeSuffix(")").toInt()))
             }
 
-            if(item.startsWith("'")) {
+            if (item.startsWith("'")) {
                 list.add(Text(item.removePrefix("'").removeSuffix("'")))
             }
         }
@@ -150,20 +150,20 @@ internal class BooleanExpressionList(var list: List<BooleanExpression>) : Boolea
 internal open class Contains(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
-        if(!(right is Number || right is Text))
+        if (!(right is Number || right is Text))
             throw InvalidParameterException("The left side must be Text or Number")
 
-        if(left !is BooleanExpressionList)
+        if (left !is BooleanExpressionList)
             throw InvalidParameterException("The right side must be BooleanExpressionList")
 
-        for(item in left.list) {
-            if(item is Number) {
+        for (item in left.list) {
+            if (item is Number) {
                 if (item.value == (right as Number).value) {
                     return true
                 }
             }
 
-            if(item is Text) {
+            if (item is Text) {
                 if (item.value == (right as Text).value) {
                     return true
                 }

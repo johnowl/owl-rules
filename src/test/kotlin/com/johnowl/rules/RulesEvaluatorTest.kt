@@ -366,11 +366,10 @@ class RulesEvaluatorTest {
             "((platform = 'android') OR (platform = 'ios')) AND (Number(version) > 0)",
             "((Number(customer) > 10) AND (Number(customer) < 100)) AND (platform = 'android')")
 
-
         val variables = mapOf("version" to "1", "platform" to "android", "customer" to "99")
         val evaluator = RulesEvaluator(variables)
 
-        for(rule in rules) {
+        for (rule in rules) {
             assert(evaluator.parseToEnd(rule).resolve())
         }
     }
@@ -402,13 +401,12 @@ class RulesEvaluatorTest {
             "1 = 1 AND (1 = 2 OR 1 = 1)",
             "(1 = 1) OR 1 = 2")
 
-        for(invalidRule in invalidRules) {
+        for (invalidRule in invalidRules) {
             assertThrows<InvalidParameterException> {
                 RulesEvaluator().parseToEnd(invalidRule).resolve()
             }
         }
     }
-
 
     @Test
     fun `should return true when list contains numeric value`() {
@@ -465,11 +463,10 @@ class RulesEvaluatorTest {
             "(NOT (['blue' 'green' 'canary'] CONTAINS 'yellow') AND ((platform = 'android') OR (platform = 'ios')) AND (Number(version) > 0))",
             "((Number(customer) > 10) AND (Number(customer) < 100)) AND (List(platformList) CONTAINS 'android')")
 
-
         val variables = mapOf("version" to "1", "platform" to "android", "customer" to "99", "platformList" to "['android' 'ios']")
         val evaluator = RulesEvaluator(variables)
 
-        for(rule in rules) {
+        for (rule in rules) {
             assert(evaluator.parseToEnd(rule).resolve())
         }
     }

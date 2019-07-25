@@ -47,7 +47,7 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
         (TRU asJust TRUE) or
         (FALS asJust FALSE) or
         (TEXT map { Text(it.text.trim('\'')) }) or
-        (NUMBER map { Number(it.text.toInt())}) or
+        (NUMBER map { Number(it.text.toInt()) }) or
         (VAR map { Text(Variable(it.text, values)) }) or
         (VAR_TO_NUMBER map { Number(Variable(it.text, values)) }) or
         (VAR_TO_LIST map { BooleanExpressionList(Variable(it.text, values)) }) or
@@ -57,14 +57,14 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
 
     private val andChain by leftAssociative(term, AND) { a, _, b -> And(a, b) }
     private val orChain by leftAssociative(andChain, OR) { a, _, b -> Or(a, b) }
-    private val gtChain by leftAssociative(orChain, GT) { a, _, b -> GreaterThan(a, b)}
-    private val gteChain by leftAssociative(gtChain, GTE) { a, _, b -> GreaterThanOrEquals(a, b)}
-    private val ltChain by leftAssociative(gteChain, LT) { a, _, b -> LessThan(a, b)}
-    private val lteChain by leftAssociative(ltChain, LTE) { a, _, b -> LessThanOrEquals(a, b)}
-    private val eqChain by leftAssociative(lteChain, EQ) { a, _, b -> Equals(a, b)}
-    private val neqChain by leftAssociative(eqChain, NEQ) { a, _, b -> NotEquals(a, b)}
-    private val containsChain by leftAssociative(neqChain, CONTAINS) { a, _, b -> Contains(a, b)}
-    private val notContainsChain by leftAssociative(containsChain, NOT_CONTAINS) { a, _, b -> NotContains(a, b)}
+    private val gtChain by leftAssociative(orChain, GT) { a, _, b -> GreaterThan(a, b) }
+    private val gteChain by leftAssociative(gtChain, GTE) { a, _, b -> GreaterThanOrEquals(a, b) }
+    private val ltChain by leftAssociative(gteChain, LT) { a, _, b -> LessThan(a, b) }
+    private val lteChain by leftAssociative(ltChain, LTE) { a, _, b -> LessThanOrEquals(a, b) }
+    private val eqChain by leftAssociative(lteChain, EQ) { a, _, b -> Equals(a, b) }
+    private val neqChain by leftAssociative(eqChain, NEQ) { a, _, b -> NotEquals(a, b) }
+    private val containsChain by leftAssociative(neqChain, CONTAINS) { a, _, b -> Contains(a, b) }
+    private val notContainsChain by leftAssociative(containsChain, NOT_CONTAINS) { a, _, b -> NotContains(a, b) }
 
     override val rootParser by notContainsChain
 }

@@ -41,5 +41,4 @@ class VariablesParserTest {
 
         assertEquals("[Number(20) Number(50) Number(30) 'text1' Number(200) 'text2']", variables["things"])
     }
-
 }

@@ -11,5 +11,4 @@ class RulesEngine {
         val evaluator = RulesEvaluator(vars).parseToEnd(expression)
         return evaluator.resolve()
     }
-
 }

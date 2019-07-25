@@ -15,11 +15,11 @@ internal class VariablesParser {
                 addText(key, value, variables)
             }
 
-            if(value is Int) {
+            if (value is Int) {
                 addNumber(key, value, variables)
             }
 
-            if(value is List<*>) {
+            if (value is List<*>) {
                 addList(key, value as List<Any>, variables)
             }
         }
@@ -39,6 +39,5 @@ internal class VariablesParser {
         variables[name] = value
             .mapNotNull { if (it is Int) "Number($it)" else "'$it'" }
             .joinToString(" ", "[", "]")
-
     }
 }
