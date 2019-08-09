@@ -52,7 +52,7 @@ using `Number(variableName)` for a number or `List(variableName)` for a list.
 
 ### Complex expressions
 
-**You always have to use parentheses in complex expressions** with AND, OR, NOT to avoid inconsistecies. Examples:
+**You always have to use parentheses in complex expressions** with AND, OR, NOT to avoid inconsistencies. Examples:
 
 - `(NOT (1 > 3)) AND (2 > 3) OR (3 > 2)`
 - `((3 > 2) AND (2 > 4) AND (4 > 3)) OR (1 = 1)`
