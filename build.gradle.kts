@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    compile("com.github.h0tk3y.betterParse:better-parse-jvm:0.4.0-alpha-3")
+    implementation("com.github.h0tk3y.betterParse:better-parse-jvm:0.4.0-alpha-3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
 }
@@ -52,5 +52,11 @@ tasks {
     check {
         dependsOn(jacocoTestCoverageVerification)
         dependsOn(jacocoTestReport)
+    }
+
+    jar {
+        from(configurations.runtimeClasspath.get().map { 
+            if (it.isDirectory) it else zipTree(it) 
+        })
     }
 }
