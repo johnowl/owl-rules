@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.johnowl"
-version = "1.1.0"
+version = "1.1." + System.getenv("CIRCLE_BUILD_NUM")
 
 repositories {
     mavenCentral()
@@ -55,8 +55,8 @@ tasks {
     }
 
     jar {
-        from(configurations.runtimeClasspath.get().map { 
-            if (it.isDirectory) it else zipTree(it) 
+        from(configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it else zipTree(it)
         })
     }
 }
