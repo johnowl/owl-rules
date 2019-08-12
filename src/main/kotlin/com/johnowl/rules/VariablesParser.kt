@@ -2,6 +2,7 @@ package com.johnowl.rules
 
 internal class VariablesParser {
 
+    @Suppress("UNCHECKED_CAST")
     fun parse(vars: Map<String, Any>): Map<String, String> {
 
         val variables = mutableMapOf<String, String>()
