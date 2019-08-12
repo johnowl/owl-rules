@@ -23,6 +23,9 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      - run: gradle build
+      - run: gradle clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
+      - run:
+          name: Publish to Artifactoy
+          command: curl -T build/libs/owl-rules-1.0.${CIRCLE_BUILD_NUM}.jar -u$BINTRAY_USER:$BINTRAY_API_KEY https://api.bintray.com/content/johnowl/maven/owl-rules/1.0.${CIRCLE_BUILD_NUM}/owl-rulesowl-rules-1.0.${CIRCLE_BUILD_NUM}.jar
