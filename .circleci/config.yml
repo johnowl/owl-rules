@@ -28,4 +28,4 @@ jobs:
           file: build/reports/jacoco/test/jacocoTestReport.xml
       - run:
           name: Publish to Artifactoy
-          command: curl --fail -T build/libs/owl-rules-1.1.${CIRCLE_BUILD_NUM}.jar -u$BINTRAY_USER:$BINTRAY_API_KEY https://api.bintray.com/content/johnowl/maven/owl-rules/1.1.${CIRCLE_BUILD_NUM}/owl-rules-1.1.${CIRCLE_BUILD_NUM}.jar
+          command: curl --fail -T build/libs/owl-rules-1.1.${CIRCLE_BUILD_NUM}.jar -u$BINTRAY_USER:$BINTRAY_API_KEY https://api.bintray.com/content/johnowl/maven/owl-rules/1.1.${CIRCLE_BUILD_NUM}/com/johnowl/owl-rules-1.1.${CIRCLE_BUILD_NUM}.jar
