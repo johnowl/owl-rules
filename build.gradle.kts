@@ -80,7 +80,7 @@ artifactory {
 
         repository(delegateClosureOf<GroovyObject> {
             setProperty("username", System.getenv("BINTRAY_USER"))
-            setProperty("username", System.getenv("BINTRAY_API_KEY"))
+            setProperty("password", System.getenv("BINTRAY_API_KEY"))
         })
 
         defaults(delegateClosureOf<GroovyObject> {
