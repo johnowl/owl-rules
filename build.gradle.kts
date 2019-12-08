@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.johnowl"
-version = "1.1.15"
+version = "1.1.0" + System.getenv("CIRCLE_BUILD_NUM")
 
 repositories {
     mavenCentral()
