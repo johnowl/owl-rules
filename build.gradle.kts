@@ -6,11 +6,11 @@ plugins {
     jacoco
     `maven-publish`
     id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
-    id("com.jfrog.bintray") version "1.8.0"
+    id("com.jfrog.bintray") version "1.8.4"
 }
 
 group = "com.johnowl"
-version = "1.1." + System.getenv("CIRCLE_BUILD_NUM")
+version = "1.1.15"
 
 repositories {
     mavenCentral()
