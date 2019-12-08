@@ -28,4 +28,4 @@ jobs:
           file: build/reports/jacoco/test/jacocoTestReport.xml
       - run:
           name: Publish to Artifactoy
-          command: gradle artifactoryDeploy
+          command: gradle bintrayUpload
