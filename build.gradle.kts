@@ -78,7 +78,7 @@ bintray {
     setPublications("maven")
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
-        name = "owl-rules"
+        name = artifactId
         userOrg = "johnowl"
         websiteUrl = "https://blog.johnowl.com"
         githubRepo = "johnowl/owl-rules"
