@@ -75,7 +75,7 @@ bintray {
     user = System.getenv("BINTRAY_USER")
     key = System.getenv("BINTRAY_API_KEY")
     publish = true
-    setPublications(artifactId)
+    setPublications("maven")
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
         name = "owl-rules"
