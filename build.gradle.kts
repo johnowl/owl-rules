@@ -11,7 +11,6 @@ plugins {
 
 group = "com.johnowl"
 version = "1.1." + System.getenv("CIRCLE_BUILD_NUM")
-val artifactId = "owl-rules"
 
 repositories {
     mavenCentral()
@@ -63,7 +62,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = group.toString()
-            artifactId = artifactId
+            artifactId = "owl-rules"
             version = version
 
             from(components["java"])
@@ -78,7 +77,7 @@ bintray {
     setPublications("maven")
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
-        name = artifactId
+        name = "owl-rules"
         userOrg = "johnowl"
         websiteUrl = "https://blog.johnowl.com"
         githubRepo = "johnowl/owl-rules"
