@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/johnowl/owl-rules.svg?style=svg)](https://circleci.com/gh/johnowl/owl-rules)
 [![codecov](https://codecov.io/gh/johnowl/owl-rules/branch/master/graph/badge.svg)](https://codecov.io/gh/johnowl/owl-rules)
-[![Download](https://api.bintray.com/packages/johnowl/maven/owl-rules/images/download.svg?version=1.1.14) ](https://bintray.com/johnowl/maven/owl-rules/1.1.14/link)
+[![Download](https://api.bintray.com/packages/johnowl/maven/owl-rules/images/download.svg?version=1.1.025) ](https://bintray.com/johnowl/maven/owl-rules/1.1.025/link)
 
 A rule engine processor with an expression boolean language to define the rules. Powered by [better-parse](https://github.com/h0tk3y/better-parse).
 
