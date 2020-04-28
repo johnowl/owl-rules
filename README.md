@@ -17,8 +17,7 @@ The first parameter is the rule and the second is a Map<String, Any> that contai
 
 ![Blue teapot](docs/assets/bule.jpg "Blue teapot1")
 
-Bule is the name of the programming language used to write the rules, it's just boolean expressions. 
-The result of a Bule expression is always `true` or `false`. See some examples of valid Bule expressions:
+In Brazilian Portuguese bule means teapot. Bule is the name of the programming language used to write the rules, it's just boolean expressions. The result of a Bule expression is always `true` or `false`. See some examples of valid Bule expressions:
 
 | Expression | Result | Description |
 | --- | --- | --- |
@@ -33,7 +32,7 @@ The result of a Bule expression is always `true` or `false`. See some examples o
 | 'john' = 'owl' | false | Text equality |
 | [1 2 3 4] CONTAINS 4 | true | Check if a number list contains a number |
 | ['blue' 'yellow' 'green'] CONTAINS 'pink' | false | Check if a text list contains a text |
-| [1 2 3 4] NOT CONTAINS 4] | false | Check if a number list does not contain a number |
+| [1 2 3 4] NOT CONTAINS 4 | false | Check if a number list does not contain a number |
 | Number(version) >= 12] | false | Check if a variable named version converted to Number is greater than or equals the number 12 |
 | (1 > 2) OR (1 = 1)| true | Return true if one of the expressions is true |
 | (3 > 2) AND (1 = 1)| true | Return true if all of the expressions are true |
