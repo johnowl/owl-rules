@@ -1,6 +1,5 @@
 package com.johnowl.rules
 
-import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
