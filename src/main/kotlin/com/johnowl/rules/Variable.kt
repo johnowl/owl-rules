@@ -4,6 +4,7 @@ import java.security.InvalidParameterException
 
 internal class Variable(val name: String, val values: Map<String, String>) {
     fun getValue(): String {
+
         var key = name
         if (name.startsWith("Number(")) {
             key = name.removePrefix("Number(").removeSuffix(")").trim()

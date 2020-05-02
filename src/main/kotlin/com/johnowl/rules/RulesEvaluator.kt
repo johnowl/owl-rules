@@ -33,9 +33,10 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
     private val NOT_CONTAINS by token("NOT CONTAINS")
 
     private val TEXT by token("'\\w+'")
+    private val CURRENT_TIME by token("CurrentTime\\(\\)")
     private val VAR_TO_NUMBER by token("Number\\([a-zA-Z]\\w+\\)")
     private val VAR_TO_LIST by token("List\\([a-zA-Z]\\w+\\)")
-    private val VAR by token("[a-zA-Z]\\w+")
+    private val VAR by token("[a-zA-Z][a-zA-Z0-9]+")
 
     private val WHITESPACE by token("\\s+", ignore = true)
 
@@ -49,6 +50,7 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
         (TEXT map { Text(it.text.trim('\'')) }) or
         (NUMBER map { Number(it.text.toInt()) }) or
         (VAR map { Text(Variable(it.text, values)) }) or
+        (CURRENT_TIME map { CurrentTime().toNumber() }) or
         (VAR_TO_NUMBER map { Number(Variable(it.text, values)) }) or
         (VAR_TO_LIST map { BooleanExpressionList(Variable(it.text, values)) }) or
         NEGATION or

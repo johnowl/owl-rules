@@ -1,6 +1,8 @@
 package com.johnowl.rules
 
 import java.security.InvalidParameterException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 internal sealed class BooleanExpression {
     abstract fun resolve(): Boolean
@@ -14,7 +16,7 @@ internal object FALSE : BooleanExpression() {
     override fun resolve() = false
 }
 
-internal data class Number(val value: Int) : Value<Int>, BooleanExpression() {
+internal open class Number(val value: Int) : Value<Int>, BooleanExpression() {
 
     constructor(variable: Variable) : this(variable.getValue().toInt())
 
@@ -22,12 +24,20 @@ internal data class Number(val value: Int) : Value<Int>, BooleanExpression() {
     override fun get() = value
 }
 
-internal data class Text(val value: String) : Value<String>, BooleanExpression() {
+internal class Text(val value: String) : Value<String>, BooleanExpression() {
 
     constructor(variable: Variable) : this(variable.getValue())
 
     override fun resolve() = value == "true"
     override fun get() = value
+}
+
+internal class CurrentTime {
+    fun toNumber(): Number {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HHmmss")
+        return Number(current.format(formatter).toInt())
+    }
 }
 
 internal class Not(val body: BooleanExpression) : BooleanExpression() {

@@ -56,3 +56,53 @@ using `Number(variableName)` for a number or `List(variableName)` for a list.
 
 - `(NOT (1 > 3)) AND (2 > 3) OR (3 > 2)`
 - `((3 > 2) AND (2 > 4) AND (4 > 3)) OR (1 = 1)`
+
+
+### CurrentTime()
+
+Since version 1.2.0 you can use the function `CurrentTime()` in your rules, 
+this function returns the current time in an integer format, for example,
+`06:00:27` turns into `060027`. This behaviour allow us to use the integer 
+operators to compare time. You need to use the time in 24 hour format.
+
+See some examples:
+
+```
+    @Test
+    fun `should return true when time is greater than current time`() {
+        val currentMinusOneHour = LocalDateTime.now().minusHours(1)
+        val formatter = DateTimeFormatter.ofPattern("HHmmss")
+        val currentMinusOneHourFormatted = currentMinusOneHour.format(formatter).toInt()
+
+        assert(engine.check("(CurrentTime() > Number(myTime))", mapOf("myTime" to currentMinusOneHourFormatted)))
+    }
+
+    @Test
+    fun `should return false when time is not greater than current time`() {
+        val currentPlusOneHour = LocalDateTime.now().plusHours(1)
+        val formatter = DateTimeFormatter.ofPattern("HHmmss")
+        val currentPlusOneHourFormatted = currentPlusOneHour.format(formatter).toInt()
+
+        assertFalse(engine.check("(CurrentTime() > Number(myTime))", mapOf("myTime" to currentPlusOneHourFormatted)))
+    }
+
+    @Test
+    fun `should return true when time is in interval`() {
+        assert(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "235600")))
+        assert(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "220001")))
+        assert(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "055959")))
+        assert(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "032700")))
+        assert(engine.check("(Number(myTime) > 070000) AND (Number(myTime) < 080000)", mapOf("myTime" to "070100")))
+        assert(engine.check("(Number(myTime) > 070000) AND (Number(myTime) < 080000)", mapOf("myTime" to "075959")))
+    }
+
+    @Test
+    fun `should return false when time is not in interval`() {
+        assertFalse(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "070000")))
+        assertFalse(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "060100")))
+        assertFalse(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "120000")))
+        assertFalse(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "215959")))
+        assertFalse(engine.check("(Number(myTime) > 070000) AND (Number(myTime) < 080000)", mapOf("myTime" to "080001")))
+        assertFalse(engine.check("(Number(myTime) > 070000) AND (Number(myTime) < 080000)", mapOf("myTime" to "065959")))
+    }
+```
