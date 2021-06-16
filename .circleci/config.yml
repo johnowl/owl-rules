@@ -18,14 +18,14 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "build.gradle.kts" }}
             - v1-dependencies-
-      - run: gradle dependencies
+      - run: ./gradlew dependencies
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      - run: gradle clean build
+      - run: ./gradlew clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
       - run:
           name: Publish to Artifactoy
-          command: gradle bintrayUpload
+          command: ./gradlew bintrayUpload
