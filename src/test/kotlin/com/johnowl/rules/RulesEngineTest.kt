@@ -30,6 +30,12 @@ class RulesEngineTest {
     }
 
     @Test
+    fun `should return true for text with UUID content equals variable`() {
+        assert(engine.check("userId = '0b14bc1c-99f1-4775-988b-c2ee965f9d4b'",
+            mapOf("userId" to "0b14bc1c-99f1-4775-988b-c2ee965f9d4b")))
+    }
+
+    @Test
     fun `should return true for number equals variable`() {
         assert(engine.check("Number(number) = 9999", mapOf("number" to 9999)))
     }

@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.jfrog.bintray.gradle.BintrayExtension
 
 plugins {
-    kotlin("jvm") version "1.3.41"
+    kotlin("jvm") version "1.5.10"
     jacoco
     `maven-publish`
     id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.johnowl"
-version = "1.2.0" + System.getenv("CIRCLE_BUILD_NUM")
+version = "1.2.1" + System.getenv("CIRCLE_BUILD_NUM")
 
 repositories {
     mavenCentral()
@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.github.h0tk3y.betterParse:better-parse-jvm:0.4.0-alpha-3")
+    implementation("com.github.h0tk3y.betterParse:better-parse-jvm:0.4.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
 }
