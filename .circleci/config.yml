@@ -27,5 +27,5 @@ jobs:
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
       - run:
-          name: Publish to Artifactoy
-          command: ./gradlew bintrayUpload
+          name: Publish to Sonatype
+          command: ./gradlew publish
