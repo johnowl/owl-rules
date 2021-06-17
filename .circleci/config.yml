@@ -28,4 +28,4 @@ jobs:
           file: build/reports/jacoco/test/jacocoTestReport.xml
       - run:
           name: Publish to Sonatype
-          command: ./gradlew publish
+          command: ./gradlew publish --debug
