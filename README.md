@@ -87,7 +87,16 @@ See some examples:
 
         assertFalse(engine.check("(CurrentTime() > Number(myTime))", mapOf("myTime" to currentPlusOneHourFormatted)))
     }
+```
 
+### Number()
+In addition to `CurrentTime ()`, you can use `Number ()`.To specify a specific time comparison scope. for example,
+`22:00:27` turns into `220027`. This behaviour allow us to use the integer operators to compare time. 
+You need to use the time in 24 hour format.
+
+See some examples:
+
+```
     @Test
     fun `should return true when time is in interval`() {
         assert(engine.check("(Number(myTime) > 220000) OR (Number(myTime) < 060000)", mapOf("myTime" to "235600")))
