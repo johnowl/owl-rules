@@ -120,6 +120,6 @@ publishing {
 }
 
 signing {
-    useInMemoryPgpKeys(project.findProperty('MY_ID'), project.findProperty('MY_KEY'), project.findProperty('MY_PASSWORD'))
+    useInMemoryPgpKeys(project.findProperty("MY_ID"), project.findProperty("MY_KEY"), project.findProperty("MY_PASSWORD"))
     sign(publishing.publications[publicationName])
 }
