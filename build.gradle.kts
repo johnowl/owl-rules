@@ -113,6 +113,11 @@ publishing {
 signing {
     val signingKey: String? by project
     val signingPassword: String? by project
+    if (signingKey.isNullOrBlank())
+        throw Exception("signingKey isNullOrBlank")
+    if (signingPassword.isNullOrBlank())
+        throw Exception("signingPassword isNullOrBlank")
+    
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["maven"])
 }
