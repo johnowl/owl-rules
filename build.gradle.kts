@@ -117,7 +117,6 @@ signing {
         throw Exception("signingKey isNullOrBlank")
     if (signingPassword.isNullOrBlank())
         throw Exception("signingPassword isNullOrBlank")
-    
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["maven"])
 }
