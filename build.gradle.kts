@@ -55,7 +55,6 @@ tasks {
         dependsOn(jacocoTestCoverageVerification)
         dependsOn(jacocoTestReport)
     }
-
 }
 
 val javadocJar by tasks.creating(Jar::class) {
