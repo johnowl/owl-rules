@@ -23,12 +23,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      - run:
-          name: Inject Maven signing key
-          command: |
-            echo $ORG_GRADLE_PROJECT_signingKey \
-              | awk 'NR == 1 { print "SIGNING_KEY=" } 1' ORS='\\n' \
-              >> gradle.properties
+      - run: gpg --help
       - run: ./gradlew clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
