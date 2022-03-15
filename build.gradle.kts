@@ -120,8 +120,8 @@ publishing {
 }
 
 signing {
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
+    val MY_KEY: String? by project
+    val MY_PASSWORD: String? by project
+    useInMemoryPgpKeys(MY_KEY, MY_PASSWORD)
     sign(publishing.publications[publicationName])
 }
