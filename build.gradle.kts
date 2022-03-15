@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     kotlin("jvm") version "1.5.10"
@@ -13,7 +14,6 @@ version = "1.2.1" + System.getenv("CIRCLE_BUILD_NUM")
 
 repositories {
     mavenCentral()
-    maven { setUrl("https://dl.bintray.com/hotkeytlt/maven") }
 }
 
 dependencies {
@@ -55,6 +55,11 @@ tasks {
         dependsOn(jacocoTestCoverageVerification)
         dependsOn(jacocoTestReport)
     }
+
+}
+
+val javadocJar by tasks.creating(Jar::class) {
+    archiveClassifier.value("javadoc")
 }
 
 publishing {
@@ -64,6 +69,7 @@ publishing {
             artifactId = "owl-rules"
             version = version
             from(components["java"])
+            artifact(javadocJar)
 
             pom {
                 name.set("Owl Rules")
@@ -92,9 +98,8 @@ publishing {
     }
     repositories {
         maven {
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            name = "central"
+            url = URI("https://oss.sonatype.org/service/local/staging/deploy/maven2")
 
             val mavenUsername: String? by project
             val mavenPassword: String? by project
