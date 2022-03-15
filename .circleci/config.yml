@@ -23,7 +23,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      - run: gpg --help
+      - run: echo "$MY_KEY" | base64 --decode > my.key
       - run: ./gradlew clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
