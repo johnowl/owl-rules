@@ -120,9 +120,7 @@ publishing {
 }
 
 signing {
-     setRequired {
-        // signing is required if this is a release version and the artifacts are to be published
-        // do not use hasTask() as this require realization of the tasks that maybe are not necessary
+    setRequired {
         gradle.taskGraph.allTasks.any { it is PublishToMavenRepository }
     }
     useInMemoryPgpKeys(project.findProperty("MY_ID") as String?, project.findProperty("MY_KEY") as String?, project.findProperty("MY_PASSWORD") as String?)
