@@ -59,16 +59,25 @@ tasks {
 
 val javadocJar by tasks.creating(Jar::class) {
     archiveClassifier.value("javadoc")
+    from(tasks.javadoc.get().destinationDir)
 }
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allJava)
+}
+
+val publicationName = "maven"
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>(publicationName) {
             groupId = group.toString()
             artifactId = "owl-rules"
             version = version
             from(components["java"])
             artifact(javadocJar)
+            artifact(sourcesJar)
 
             pom {
                 name.set("Owl Rules")
@@ -113,10 +122,6 @@ publishing {
 signing {
     val signingKey: String? by project
     val signingPassword: String? by project
-    if (signingKey.isNullOrBlank())
-        throw Exception("signingKey isNullOrBlank")
-    if (signingPassword.isNullOrBlank())
-        throw Exception("signingPassword isNullOrBlank")
     useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["maven"])
+    sign(publishing.publications[publicationName])
 }
