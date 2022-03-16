@@ -123,7 +123,8 @@ signing {
     setRequired {
         gradle.taskGraph.allTasks.any { it is PublishToMavenRepository }
     }
-    useInMemoryPgpKeys(project.findProperty("MY_ID") as String?, project.findProperty("MY_KEY") as String?, project.findProperty("MY_PASSWORD") as String?)
+    useGpgCmd()
+    // useInMemoryPgpKeys(project.findProperty("MY_ID") as String?, project.findProperty("MY_KEY") as String?, project.findProperty("MY_PASSWORD") as String?)
     // useInMemoryPgpKeys(project.findProperty("MY_KEY") as String?, project.findProperty("MY_PASSWORD") as String?)
     sign(publishing.publications[publicationName])
 }
