@@ -13,7 +13,6 @@ version = "1.2.1" + System.getenv("CIRCLE_BUILD_NUM")
 
 repositories {
     mavenCentral()
-    maven { setUrl("https://dl.bintray.com/hotkeytlt/maven") }
 }
 
 dependencies {
@@ -57,13 +56,27 @@ tasks {
     }
 }
 
+val javadocJar by tasks.creating(Jar::class) {
+    archiveClassifier.value("javadoc")
+    from(tasks.javadoc.get().destinationDir)
+}
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allJava)
+}
+
+val publicationName = "maven"
+
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>(publicationName) {
             groupId = group.toString()
             artifactId = "owl-rules"
             version = version
             from(components["java"])
+            artifact(javadocJar)
+            artifact(sourcesJar)
 
             pom {
                 name.set("Owl Rules")
@@ -92,6 +105,7 @@ publishing {
     }
     repositories {
         maven {
+            name = "central"
             val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
@@ -107,8 +121,5 @@ publishing {
 }
 
 signing {
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["maven"])
+    sign(publishing.publications[publicationName])
 }
