@@ -1,5 +1,6 @@
 # Owl Rules
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.johnowl/owl-rules/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.johnowl/owl-rules)
 [![CircleCI](https://circleci.com/gh/johnowl/owl-rules.svg?style=svg)](https://circleci.com/gh/johnowl/owl-rules)
 [![codecov](https://codecov.io/gh/johnowl/owl-rules/branch/master/graph/badge.svg)](https://codecov.io/gh/johnowl/owl-rules)
 
