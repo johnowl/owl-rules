@@ -76,6 +76,8 @@ publishing {
             artifactId = "owl-rules"
             version = version
             from(components["java"])
+            artifact(javadocJar)
+            artifact(sourcesJar)
 
             pom {
                 name.set("Owl Rules")
