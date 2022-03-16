@@ -26,6 +26,7 @@ jobs:
       - run: ./gradlew clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
+      - run: echo "$KEYRING_BASE64" | base64 -d > $HOME/secring.gpg
       - run:
           name: Publish to Sonatype
-          command: ./gradlew publish --stacktrace
+          command: ./gradlew publish -Psigning.secretKeyRingFile=$HOME/secring.gpg --stacktrace
