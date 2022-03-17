@@ -470,4 +470,64 @@ class RulesEvaluatorTest {
             assert(evaluator.parseToEnd(rule).resolve())
         }
     }
+
+    @Test
+    fun `should compare version equals variable`() {
+        val expr = "Version(1.2.3) = Number(version)"
+        val variables = mapOf("version" to "001002003")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assert(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version not equals variable`() {
+        val expr = "Version(1.2.3) = Number(version)"
+        val variables = mapOf("version" to "001002009")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assertFalse(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version equals value`() {
+        val evaluator = RulesEvaluator(emptyMap()).parseToEnd("Version(1.2.3) = 1002003")
+        assert(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version not less than variable`() {
+        val expr = "Version(1.2.3) < Number(version)"
+        val variables = mapOf("version" to "001002002")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assertFalse(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version less than variable`() {
+        val expr = "Version(1.2.3) < Number(version)"
+        val variables = mapOf("version" to "001002004")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assert(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version not greater than variable`() {
+        val expr = "Version(1.2.3) > Number(version)"
+        val variables = mapOf("version" to "001002003")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assertFalse(evaluator.resolve())
+    }
+
+    @Test
+    fun `should compare version greater than variable`() {
+        val expr = "Version(1.2.3) > Number(version)"
+        val variables = mapOf("version" to "001002002")
+
+        val evaluator = RulesEvaluator(variables).parseToEnd(expr)
+        assert(evaluator.resolve())
+    }
 }

@@ -40,6 +40,25 @@ internal class CurrentTime {
     }
 }
 
+internal class Version(private val value: String) {
+
+    init {
+        if (!value.matches(Regex("""^Version\([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\)$"""))) {
+            throw InvalidParameterException("Version should be in the format [0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}")
+        }
+    }
+
+    fun toNumber(): Number {
+        val formattedValue = value
+            .removePrefix("Version(")
+            .removeSuffix(")")
+            .split(".")
+            .joinToString(separator = "", prefix = "", postfix = "") { "000$it".takeLast(3) }
+
+        return Number(formattedValue.toInt())
+    }
+}
+
 internal class Not(val body: BooleanExpression) : BooleanExpression() {
     override fun resolve() = !body.resolve()
 }

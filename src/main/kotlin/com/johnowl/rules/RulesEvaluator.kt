@@ -36,6 +36,7 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
 
     private val TEXT by regexToken("'[^']+'")
     private val CURRENT_TIME by literalToken("CurrentTime()")
+    private val VERSION by regexToken("Version\\([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\)")
     private val VAR_TO_NUMBER by regexToken("Number\\([a-zA-Z]\\w+\\)")
     private val VAR_TO_LIST by regexToken("List\\([a-zA-Z]\\w+\\)")
     private val VAR by regexToken("[a-zA-Z][a-zA-Z0-9]+")
@@ -53,6 +54,7 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
         (NUMBER map { Number(it.text.toInt()) }) or
         (VAR map { Text(Variable(it.text, values)) }) or
         (CURRENT_TIME map { CurrentTime().toNumber() }) or
+        (VERSION map { Version(it.text).toNumber() }) or
         (VAR_TO_NUMBER map { Number(Variable(it.text, values)) }) or
         (VAR_TO_LIST map { BooleanExpressionList(Variable(it.text, values)) }) or
         NEGATION or
