@@ -53,7 +53,7 @@ internal class Version(private val value: String) {
             .removePrefix("Version(")
             .removeSuffix(")")
             .split(".")
-            .joinToString(separator = "", prefix = "", postfix = "") { "000$it".takeLast(3) }
+            .joinToString(separator = "", prefix = "", postfix = "") { "0000$it".takeLast(4) }
 
         return Number(formattedValue.toInt())
     }
@@ -126,6 +126,9 @@ internal class LessThanOrEquals(val left: BooleanExpression, val right: BooleanE
 internal class Equals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
     override fun resolve(): Boolean {
 
+        if (left::class.java.typeName != right::class.java.typeName)
+            return false
+
         if (left is Number && right is Number)
             return left.value == right.value
 
@@ -137,7 +140,11 @@ internal class Equals(val left: BooleanExpression, val right: BooleanExpression)
 }
 
 internal class NotEquals(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression() {
+
     override fun resolve(): Boolean {
+
+        if (left::class.java.typeName != right::class.java.typeName)
+            return true
 
         if (left is Number && right is Number)
             return left.value != right.value

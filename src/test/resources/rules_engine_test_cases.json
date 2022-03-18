@@ -1,0 +1,578 @@
+[
+  {
+    "name": "empty",
+    "rule": "",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "true",
+    "rule": "true",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "true with nil vars",
+    "rule": "true",
+    "vars": "",
+    "expected_result": "true"
+  },
+  {
+    "name": "var with nil vars",
+    "rule": "Number(version) >= 12",
+    "vars": "",
+    "expected_result": "error"
+  },
+  {
+    "name": "false",
+    "rule": "false",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "NOT true",
+    "rule": "NOT true",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "NOT false",
+    "rule": "NOT false",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "NOT NOT true",
+    "rule": "NOT NOT true",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "NOT NOT false",
+    "rule": "NOT NOT false",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list 1",
+    "rule": "[1 2 3 4] CONTAINS 4",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list 1",
+    "rule": "[1 2 3 4] NOT CONTAINS 4",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list 1",
+    "rule": "NOT ([1 2 3 4] CONTAINS 4)",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list 2",
+    "rule": "['blue' 'yellow' 'green'] CONTAINS 'pink'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "missing variable",
+    "rule": "[name] CONTAINS 'John'",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "simple var 1",
+    "rule": "[name] CONTAINS 'John'",
+    "vars": "{\"name\":\"Jane\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple var 2",
+    "rule": "[name] CONTAINS 'John'",
+    "vars": "{\"name\":\"John\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple var 2",
+    "rule": "platform = 'android'",
+    "vars": "{\"platform\":\"android\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 1",
+    "rule": "1 = 1",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 2",
+    "rule": "1 != 1",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 3",
+    "rule": "1 > 1",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 4",
+    "rule": "1 >= 1",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 5",
+    "rule": "1 < 1",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 6",
+    "rule": "1 <= 1",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 7",
+    "rule": "2 = 3",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 8",
+    "rule": "2 != 3",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 9",
+    "rule": "2 > 3",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 10",
+    "rule": "2 >= 3",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 11",
+    "rule": "2 < 3",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 12",
+    "rule": "2 <= 3",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 13",
+    "rule": "5 = 4",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 14",
+    "rule": "5 != 4",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 15",
+    "rule": "5 > 4",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 16",
+    "rule": "5 >= 4",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator 17",
+    "rule": "5 < 4",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator 18",
+    "rule": "5 <= 4",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator text 1",
+    "rule": "'1' = '1'",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator text 2",
+    "rule": "'1' != '1'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator text 3",
+    "rule": "'1' > '1'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator text 4",
+    "rule": "'1' >= '1'",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator text 5",
+    "rule": "'1' < '1'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator text 6",
+    "rule": "'1' <= '1'",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator type mismatch 1",
+    "rule": "1 = '1'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple operator type mismatch 2",
+    "rule": "1 != '1'",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple operator type mismatch 3",
+    "rule": "1 > '1'",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "simple operator type mismatch 4",
+    "rule": "1 >= '1'",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "simple operator type mismatch 5",
+    "rule": "1 < '1'",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "simple operator type mismatch 6",
+    "rule": "1 <= '1'",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "simple or 1",
+    "rule": "(1 > 2) OR (1 = 1)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple or 2",
+    "rule": "(1 > 2) OR (1 < 1)",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple or 3",
+    "rule": "(1 < 2) OR (1 = 1)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "simple and 1",
+    "rule": "(1 > 2) AND (1 = 1)",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple and 2",
+    "rule": "(1 > 2) AND (1 < 1)",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "simple and 3",
+    "rule": "(1 < 2) AND (1 = 1)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "number 1",
+    "rule": "11 >= 12",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "number 2",
+    "rule": "12 >= 12",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "number 3",
+    "rule": "Number(version) >= 12",
+    "vars": "{\"version\":\"11\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "number 4",
+    "rule": "Number(version) >= 12",
+    "vars": "{\"version\":\"12\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "number 5",
+    "rule": "Number(11) >= 12",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "number 6",
+    "rule": "Number() >= 12",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "number 7",
+    "rule": "Number >= 12",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "number 8",
+    "rule": "Number('11')",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "number 9",
+    "rule": "Number('bob') < 20",
+    "vars": "{}",
+    "expected_result": "error"
+  },
+  {
+    "name": "currenttime 1",
+    "rule": "CurrentTime() > 0",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "currenttime 2",
+    "rule": "CurrentTime() < 250000",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "currenttime 3",
+    "rule": "CurrentTime() < 0",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list literal 1",
+    "rule": "[1 2 3 4] CONTAINS 2",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list literal 2",
+    "rule": "[1 2 3 4] CONTAINS 5",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list literal 3",
+    "rule": "['one' 'two' 'three'] CONTAINS 'two'",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list literal 4",
+    "rule": "['one' 'two' 'three'] CONTAINS 'four'",
+    "vars": "{}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list literal 5",
+    "rule": "[1 2 3 4] CONTAINS Number(var1)",
+    "vars": "{\"var1\":1}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list literal 6",
+    "rule": "[1 2 3 4] CONTAINS Number(var1)",
+    "vars": "{\"var1\":5}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list function 1",
+    "rule": "[1 2 3 4] CONTAINS Number(var1)",
+    "vars": "{\"var1\":1}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list function 2",
+    "rule": "List(var0) CONTAINS Number(var1)",
+    "vars": "{\"var0\":[1,2,3,4],\"var1\":1}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list function 3",
+    "rule": "List(var0) CONTAINS Number(var1)",
+    "vars": "{\"var0\":[1,2,3,4],\"var1\":\"1\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list function 4",
+    "rule": "List(var0) CONTAINS var1",
+    "vars": "{\"var0\":[\"alpha\",\"beta\",1,2],\"var1\":\"beta\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list literal not",
+    "rule": "[1 2 3 4] NOT CONTAINS Number(var1)",
+    "vars": "{\"var1\":1}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list function 1 not",
+    "rule": "[1 2 3 4] NOT CONTAINS Number(var1)",
+    "vars": "{\"var1\":1}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list function 2 not",
+    "rule": "List(var0) NOT CONTAINS Number(var1)",
+    "vars": "{\"var0\":[1,2,3,4],\"var1\":1}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list function 3 not",
+    "rule": "List(var0) NOT CONTAINS Number(var1)",
+    "vars": "{\"var0\":[1,2,3,4],\"var1\":\"1\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list function 4 not",
+    "rule": "List(var0) NOT CONTAINS var1",
+    "vars": "{\"var0\":[\"alpha\",\"beta\",1,2],\"var1\":\"beta\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list with variable true",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS 'blue'",
+    "vars": "{\"var1\":\"blue\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list with variable false",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS 'canary'",
+    "vars": "{\"var1\":\"blue\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list with numeric variable true",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS '1'",
+    "vars": "{\"var1\":1}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list with numeric variable false",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS '2'",
+    "vars": "{\"var1\":1}",
+    "expected_result": "false"
+  },
+  {
+    "name": "list with string variable true",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS '1'",
+    "vars": "{\"var1\":\"1\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "list with string variable false",
+    "rule": "['beta' 'alpha' 'has_reward_program' var1] CONTAINS '2'",
+    "vars": "{\"var1\":\"1\"}",
+    "expected_result": "false"
+  },
+  {
+    "name": "version 1",
+    "rule": "000100010128 = Version(1.1.128)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 2",
+    "rule": "000100010129 > Version(1.1.128)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 3",
+    "rule": "000100010127 < Version(1.1.128)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 4",
+    "rule": "000100020000 > Version(1.1.128)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 5",
+    "rule": "000100000999 < Version(1.1.128)",
+    "vars": "{}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 6",
+    "rule": "Number(appVersion) = Version(1.1.128)",
+    "vars": "{\"appVersion\":\"000100010128\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 7",
+    "rule": "Number(appVersion) > Version(1.1.128)",
+    "vars": "{\"appVersion\":\"000100010129\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 8",
+    "rule": "Number(appVersion) < Version(1.1.128)",
+    "vars": "{\"appVersion\":\"000100010127\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 9",
+    "rule": "Number(appVersion) > Version(1.1.128)",
+    "vars": "{\"appVersion\":\"000100020000\"}",
+    "expected_result": "true"
+  },
+  {
+    "name": "version 10",
+    "rule": "Number(appVersion) < Version(1.1.128)",
+    "vars": "{\"appVersion\":\"000100000999\"}",
+    "expected_result": "true"
+  }
+]
