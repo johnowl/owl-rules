@@ -26,7 +26,10 @@ jobs:
       - run: ./gradlew clean build
       - codecov/upload:
           file: build/reports/jacoco/test/jacocoTestReport.xml
-      - run: echo "$KEYRING_BASE64" | base64 -d > $HOME/secring.gpg
       - run:
           name: Publish to Sonatype
-          command: ./gradlew publish -Psigning.keyId=42B58261 -Psigning.password="$KEY_PASSWORD" -Psigning.secretKeyRingFile=$HOME/secring.gpg --stacktrace
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "$KEYRING_BASE64" | base64 -d > $HOME/secring.gpg
+              ./gradlew publish -Psigning.keyId=42B58261 -Psigning.password="$KEY_PASSWORD" -Psigning.secretKeyRingFile=$HOME/secring.gpg --stacktrace
+            fi
