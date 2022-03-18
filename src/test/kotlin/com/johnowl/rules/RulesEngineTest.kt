@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
-import java.nio.file.Files
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -19,7 +18,7 @@ class RulesEngineTest {
         val testCases = "src/test/resources/rules_engine_test_cases.json"
         val mapper = jacksonObjectMapper()
         val testCaseList = mapper.readValue(File(testCases).absoluteFile, TestCaseList::class.java)
-        for(testCase in testCaseList) {
+        for (testCase in testCaseList) {
             println(testCase.name)
             val variables = if (testCase.vars.isBlank()) {
                 emptyMap()
