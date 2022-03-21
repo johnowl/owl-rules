@@ -10,6 +10,13 @@ See the Go version at [gobule](https://github.com/udhos/gobule)
 
 ## How to use
 
+
+Add the dependency
+
+    implementation("com.johnowl:owl-rules:$owlRulesVersion")
+    
+Then start evaluating your rules:
+
     val result = RulesEngine().check("platform = 'android'", mapOf("platform" to "android"))
     
 The first parameter is the rule and the second is a Map<String, Any> that contains de variables used to evaluate the rule.
