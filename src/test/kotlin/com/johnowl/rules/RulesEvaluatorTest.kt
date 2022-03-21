@@ -4,7 +4,6 @@ import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.security.InvalidParameterException
 
 class RulesEvaluatorTest {
 
@@ -395,16 +394,14 @@ class RulesEvaluatorTest {
     }
 
     @Test
-    fun `should throw exception when invalid syntax`() {
-        val invalidRules = listOf("NOT 1 = 1",
+    fun `should works with valid sintax`() {
+        val rules = listOf("NOT 1 = 1",
             "1 = 1 AND 1 = 2",
             "1 = 1 AND (1 = 2 OR 1 = 1)",
             "(1 = 1) OR 1 = 2")
 
-        for (invalidRule in invalidRules) {
-            assertThrows<InvalidParameterException> {
-                RulesEvaluator().parseToEnd(invalidRule).resolve()
-            }
+        for (rule in rules) {
+            assertFalse(RulesEvaluator().parseToEnd(rule).resolve(), "rule")
         }
     }
 
@@ -474,7 +471,7 @@ class RulesEvaluatorTest {
     @Test
     fun `should compare version equals variable`() {
         val expr = "Version(1.2.3) = Number(version)"
-        val variables = mapOf("version" to "001002003")
+        val variables = mapOf("version" to "000100020003")
 
         val evaluator = RulesEvaluator(variables).parseToEnd(expr)
         assert(evaluator.resolve())
@@ -491,7 +488,7 @@ class RulesEvaluatorTest {
 
     @Test
     fun `should compare version equals value`() {
-        val evaluator = RulesEvaluator(emptyMap()).parseToEnd("Version(1.2.3) = 1002003")
+        val evaluator = RulesEvaluator(emptyMap()).parseToEnd("Version(1.2.3) = 100020003")
         assert(evaluator.resolve())
     }
 
@@ -507,7 +504,7 @@ class RulesEvaluatorTest {
     @Test
     fun `should compare version less than variable`() {
         val expr = "Version(1.2.3) < Number(version)"
-        val variables = mapOf("version" to "001002004")
+        val variables = mapOf("version" to "000100020004")
 
         val evaluator = RulesEvaluator(variables).parseToEnd(expr)
         assert(evaluator.resolve())
@@ -516,7 +513,7 @@ class RulesEvaluatorTest {
     @Test
     fun `should compare version not greater than variable`() {
         val expr = "Version(1.2.3) > Number(version)"
-        val variables = mapOf("version" to "001002003")
+        val variables = mapOf("version" to "00100020003")
 
         val evaluator = RulesEvaluator(variables).parseToEnd(expr)
         assertFalse(evaluator.resolve())
@@ -525,7 +522,7 @@ class RulesEvaluatorTest {
     @Test
     fun `should compare version greater than variable`() {
         val expr = "Version(1.2.3) > Number(version)"
-        val variables = mapOf("version" to "001002002")
+        val variables = mapOf("version" to "00100020002")
 
         val evaluator = RulesEvaluator(variables).parseToEnd(expr)
         assert(evaluator.resolve())

@@ -1,13 +1,41 @@
 package com.johnowl.rules
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RulesEngineTest {
 
     private val engine = RulesEngine()
+
+    @Test
+    fun `validate all test cases from file`() {
+        val testCases = "src/test/resources/rules_engine_test_cases.json"
+        val mapper = jacksonObjectMapper()
+        val testCaseList = mapper.readValue(File(testCases).absoluteFile, TestCaseList::class.java)
+        for (testCase in testCaseList) {
+            println(testCase.name)
+            val variables = if (testCase.vars.isBlank()) {
+                emptyMap()
+            } else {
+                mapper.readValue(testCase.vars, TestCaseVariables::class.java)
+            }
+
+            if (testCase.expectedResult == "error") {
+                assertThrows<Exception>("Test case: ${testCase.name}") {
+                    engine.check(testCase.rule, variables)
+                }
+            } else {
+                val expectedResult = testCase.expectedResult == "true"
+                assertEquals(engine.check(testCase.rule, variables), expectedResult, "Test case: ${testCase.name}")
+            }
+        }
+    }
 
     @Test
     fun `should return true for literal true whithout variables`() {

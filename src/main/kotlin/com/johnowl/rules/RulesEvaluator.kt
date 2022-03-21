@@ -23,6 +23,7 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
     private val LSQR by literalToken("[")
     private val RSQR by literalToken("]")
     private val NEQ by literalToken("!=")
+    private val NOT_CONTAINS by literalToken("NOT CONTAINS")
     private val NOT by literalToken("NOT")
     private val AND by literalToken("AND")
     private val OR by literalToken("OR")
@@ -32,7 +33,6 @@ internal class RulesEvaluator() : Grammar<BooleanExpression>() {
     private val LT by literalToken("<")
     private val EQ by literalToken("=")
     private val CONTAINS by literalToken("CONTAINS")
-    private val NOT_CONTAINS by literalToken("NOT CONTAINS")
 
     private val TEXT by regexToken("'[^']+'")
     private val CURRENT_TIME by literalToken("CurrentTime()")
